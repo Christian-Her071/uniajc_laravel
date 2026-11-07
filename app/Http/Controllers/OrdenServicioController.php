@@ -23,7 +23,10 @@ class OrdenServicioController extends Controller
      */
     public function create()
     {
-        //
+        $clientes = Cliente::orderBy('nombre')->get(['id_cliente', 'nombre', 'apellido']);
+        $usuarios = Usuario::where('activo', true)->orderBy('username')->get(['id_usuario', 'username']);
+
+        return view('ordenes.create', compact('clientes', 'usuarios'));
     }
 
     /**
@@ -31,7 +34,19 @@ class OrdenServicioController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $datos = $request->validate([
+            'cliente_id'    => 'required|exists:cliente,id_cliente',
+            'usuario_id'    => 'required|exists:usuario,id_usuario',
+            'codigo_orden'  => 'required|max:50|unique:orden_de_servicio,codigo_orden',
+            'descripcion'   => 'required',
+            'tipo_servicio' => 'required|max:50',
+            'prioridad'     => ['required', Rule::in(OrdenServicio::PRIORIDADES)],
+        ]);
+
+        OrdenServicio::create($datos);
+
+        return redirect()->route('ordenes.index')
+            ->with('success', 'Orden de servicio creada correctamente.');
     }
 
     /**
