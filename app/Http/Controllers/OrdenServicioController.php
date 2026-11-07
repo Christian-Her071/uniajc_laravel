@@ -15,7 +15,10 @@ class OrdenServicioController extends Controller
      */
     public function index()
     {
-        //
+        $ordenes = OrdenServicio::with(['cliente', 'usuario']) 
+        ->orderByDesc('id') 
+        ->get(); 
+        return view('ordenes.index', compact('ordenes'));
     }
 
     /**

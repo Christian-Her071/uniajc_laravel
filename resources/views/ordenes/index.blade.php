@@ -74,7 +74,7 @@
 
                                 {{-- Editar --}}
                                 <a href="{{ route('ordenes.edit', $orden) }}"
-                                   class="btn btn-sm btn-warning me-2">
+                                   class="btn btn-sm btn-warning">
 
                                     <i class="fas fa-edit"></i>
                                     Editar
