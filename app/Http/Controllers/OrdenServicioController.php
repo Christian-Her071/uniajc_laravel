@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+use App\Models\OrdenServicio;
+use App\Models\Cliente;
+use App\Models\Usuario;
 
 class OrdenServicioController extends Controller
 {
@@ -41,7 +45,7 @@ class OrdenServicioController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(OrdenServicio $orden)
     {
         //
     }
@@ -49,7 +53,7 @@ class OrdenServicioController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, OrdenServicio $orden)
     {
         //
     }
