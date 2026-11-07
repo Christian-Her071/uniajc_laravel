@@ -41,18 +41,27 @@ class OrdenServicioController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
-    {
-        //
-    }
+    public function edit(OrdenServicio $orden)
+{
+    $orden->load(['cliente', 'usuario']);
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
+    return view('ordenes.edit', compact('orden'));
+}
+
+public function update(Request $request, OrdenServicio $orden)
+{
+    $datos = $request->validate([
+        'tipo_servicio'         => 'required|max:50',
+        'prioridad'             => ['required', Rule::in(OrdenServicio::PRIORIDADES)],
+        'estado'                => ['required', Rule::in(OrdenServicio::ESTADOS)],
+        'fecha_cierre_estimada' => 'nullable|date',
+    ]);
+
+    $orden->update($datos);
+
+    return redirect()->route('ordenes.index')
+        ->with('success', 'Orden de servicio actualizada correctamente.');
+}
 
     /**
      * Remove the specified resource from storage.
