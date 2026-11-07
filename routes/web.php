@@ -11,4 +11,6 @@ Route::get('/', function () {
 
 Route::resource('clientes', ClienteController::class);
 Route::resource('usuarios', UsuarioController::class);
-Route::resource('ordenes', OrdenServicioController::class);
+Route::resource('ordenes', OrdenServicioController::class)
+    ->parameters(['ordenes' => 'orden'])
+    ->except(['show', 'destroy']);
